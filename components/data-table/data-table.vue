@@ -14,21 +14,30 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="(row, rowIndex) in rows" :key="rowIndex">
-				<td 
-					v-for="header in headers" 
-					:style="[header.style ? header.style : {}]"
-					:key="`${rowIndex}-${header.key}`"
+			<tr :colspan="headers.length" v-if="isLoading">
+				<v-progress-linear
+					intermidiate
+					color="primary"
 				>
-					<slot 
-						:name="`cell(${header.key})`"
-						:row="row"
-						:cell="row[header.key]"
-					>
-						{{ (header.key in row) ? row[header.key] : '' }}
-					</slot>
-				</td>
+				</v-progress-linear>	
 			</tr>
+			<template v-else>
+				<tr v-for="(row, rowIndex) in rows" :key="rowIndex">
+					<td 
+						v-for="header in headers" 
+						:style="[header.style ? header.style : {}]"
+						:key="`${rowIndex}-${header.key}`"
+					>
+						<slot 
+							:name="`cell(${header.key})`"
+							:row="row"
+							:cell="row[header.key]"
+						>
+							{{ (header.key in row) ? row[header.key] : '' }}
+						</slot>
+					</td>
+				</tr>
+			</template>
 		</tbody>
 	</table>
 </template>
@@ -58,8 +67,8 @@ table {
 	border-collapse: collapse;
 	width: 100%;
 	td {
-		font-size: 12px;
-		padding: 16.5px 14px;
+		font-size: 14px;
+		padding: 16px 14px;
 		border: 1px solid rgba(0, 0, 0, 0.12);;
 	}
 }
