@@ -41,26 +41,7 @@
           <v-list-item prepend-icon="mdi-plus" title="Other" value="other"></v-list-item>
         </v-list>
       </v-navigation-drawer>
-
-      <!-- <v-app-bar 
-        elevation="0"
-      >
-        <v-container fluid>
-          <v-row>
-            <v-col cols="3">
-              <h4>Claims / <span class="text-primary">Claims Types</span></h4>
-            </v-col>
-          </v-row>
-        </v-container>
-        <template v-slot:append>
-          <v-btn class="bg-primary text-white">create</v-btn>
-          <v-btn icon="mdi-refresh" size="small" variant="outlined" rounded="sm" color="primary" class="ml-2"></v-btn>
-          <v-btn icon="mdi-table-column-remove" size="small" rounded="sm" color="primary" class="bg-primary-lighten-1 text-primary ml-2"> </v-btn> 
-          <v-btn icon="mdi-filter-plus-outline" size="small" rounded="sm" color="primary" class="bg-primary-lighten-1 text-primary ml-2"> </v-btn> 
-        </template> 
-      </v-app-bar>
-      <hr> -->
-
+      
       <v-main>
         <NuxtPage/>
       </v-main>
