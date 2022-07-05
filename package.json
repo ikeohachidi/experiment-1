@@ -7,6 +7,7 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.72",
     "@mdi/font": "5.9.55",
     "roboto-fontface": "*",
     "vuetify": "^3.0.0-beta.0",
