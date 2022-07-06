@@ -15,7 +15,7 @@
 	      <template v-slot:append>
 	        <v-btn class="bg-primary text-white">create</v-btn>
 	        <v-btn icon="mdi-refresh" size="small" variant="outlined" rounded="sm" color="primary" class="ml-2"></v-btn>
-	        <v-btn icon="mdi-table-column-remove" size="small" rounded="sm" color="primary" class="bg-primary-lighten-1 text-primary ml-2"> </v-btn> 
+	        <v-btn icon="mdi-table-column-remove" size="small" rounded="sm" color="primary" class="bg-primary-lighten-1 text-primary ml-2"> </v-btn>	 
 	        <v-btn 
 	        	icon="mdi-filter-plus-outline" 
 	        	size="small" 
@@ -30,7 +30,7 @@
 	    <div>
 				<DataTable
 					:headers="headers"
-					:rows="users"
+					:rows="userStore.users"
 					:isLoading="pending"
 				>
 					<template #cell(action)>
@@ -48,7 +48,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
+import { useUser } from '~/store';
 
 const API = 'https://jsonplaceholder.typicode.com/users';
 
@@ -61,11 +62,14 @@ const headers = [
 	{ label: 'Action', key: 'action' }
 ];
 
-const { data: users, pending } = await useFetch(API)
+// const { data: users, pending } = await useFetch(API);
+// const displayFilters = ref(false);
 
-const displayFilters = ref(false)
+const userStore = useUser();
+onMounted(() => {
+	userStore.fetchUsers()
+})
 </script>
-
 
 <style lang="scss" scoped>
 
