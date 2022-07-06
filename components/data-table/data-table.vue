@@ -37,13 +37,20 @@
 						</slot>
 					</td>
 				</tr>
+				<tr v-if="hasPagination">
+					<v-pagination
+						v-model="page"
+						:length="paginationLength"
+					>
+					</v-pagination>
+				</tr>
 			</template>
 		</tbody>
 	</table>
 </template>
 
 <script lang="ts" setup>
-import { CSSProperties} from 'vue'
+import { CSSProperties, ref } from 'vue'
 
 interface Header {
 	label: string,
@@ -54,12 +61,25 @@ interface Header {
 const props = withDefaults(defineProps<{
 	headers: Array<Header>,
 	rows: Array<{[key: string]: unknown}>,
-	isLoading: boolean
+	isLoading: boolean,
+	hasPagination: boolean,
+	rowsPerPage: number
 }>(), {
 	headers: [],
 	rows: [],
-	isLoading: false
+	isLoading: false,
+	hasPagination: false,
+	rowsPerPage: 10
 }) 
+
+const page = ref(1);
+const paginationLength = computed(() => Math.round(props.rows.length / props.rowsPerPage));
+
+const emit = defineEmits<{
+	(e: 'prevClicked', v: number): void
+	(e: 'nextClicked', v: number): void
+}>()
+
 </script>
 
 <style lang="scss" scoped>
