@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
+    "@fawmi/vue-google-maps": "^0.9.72",
     "@mdi/font": "5.9.55",
     "@nuxtjs/composition-api": "^0.32.0",
     "@pinia/nuxt": "^0.1.9",

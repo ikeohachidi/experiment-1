@@ -1,18 +1,26 @@
 <template>
-	<!-- <uwb-location-map
+	<uwb-location-map
 		:locations="locations"
-	/> -->
-	<div></div>
+	/>
 </template>
 
 <script setup lang="ts">
-const locations = [
+import { UWBLocation } from '~/types';
+
+const locations: UWBLocation[] = [
 	{
 		position: {
-			lat: 51.093048, 
+			lat: 51.093048,
 			lng: 6.842120
 		},
-		address: 'hello'
+		address: ''
 	},
+	{
+		position: {
+			lat: 51.093048,
+			lng: 6.842120
+		},
+		address: ''
+	}
 ]
 </script>
