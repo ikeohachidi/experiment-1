@@ -6,7 +6,7 @@ export default defineNuxtConfig({
 		transpile: ['vuetify', '@fawmi/vue-google-maps'],
 	},
 	publicRuntimeConfig: {
-		googleApiKey: ''
+		googleApiKey: process.env.GOOGLE_MAPS_KEY
 	},
 	vite: {
 		define: {
