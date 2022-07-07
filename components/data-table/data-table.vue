@@ -61,12 +61,10 @@ interface Header {
 const props = withDefaults(defineProps<{
 	headers: Array<Header>,
 	rows: Array<{[key: string]: unknown}>,
-	isLoading: boolean,
-	hasPagination: boolean,
-	rowsPerPage: number
+	isLoading?: boolean,
+	hasPagination?: boolean,
+	rowsPerPage?: number
 }>(), {
-	headers: [],
-	rows: [],
 	isLoading: false,
 	hasPagination: false,
 	rowsPerPage: 10
