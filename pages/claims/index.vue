@@ -30,12 +30,15 @@
 	    <div>
 				<DataTable
 					:headers="headers"
-					:rows="userStore.users"
+					:rows="characters"
 					:isLoading="pending"
 				>
 					<template #cell(action)>
-		        <v-btn icon="mdi-pencil" variant="tonal" size="x-small" rounded="sm" class="ml-2" ></v-btn> 
-		        <v-btn icon="mdi-delete" variant="tonal" size="x-small" rounded="sm" class="ml-2" ></v-btn> 
+						<v-btn icon="mdi-pencil" variant="tonal" size="x-small" rounded="sm" class="ml-2" ></v-btn> 
+						<v-btn icon="mdi-delete" variant="tonal" size="x-small" rounded="sm" class="ml-2" ></v-btn> 
+					</template>
+					<template #cell(origin)="{ cell }">
+						{{ cell.name }}
 					</template>
 				</DataTable>
 	    </div>
@@ -50,25 +53,44 @@
 <script lang="ts" setup>
 import { ref, watch, onMounted } from 'vue';
 import { useUser } from '~/store';
+import { useQuery } from '@vue/apollo-composable'
+import gql from 'graphql-tag';
 
 const API = 'https://jsonplaceholder.typicode.com/users';
 
 const headers = [
 	{ label: 'Name', key: 'name' },
-	{ label: 'Username', key: 'username' },
-	{ label: 'Email', key: 'email' },
-	{ label: 'Phone', key: 'phone', style: {textAlign: 'right'} },
-	{ label: 'Website', key: 'website' },
-	{ label: 'Action', key: 'action' }
+	{ label: 'Status', key: 'status' },
+	{ label: 'Species', key: 'species' },
+	{ label: 'Type', key: 'type', style: { textAlign: 'right' }},
+	{ label: 'Gender', key: 'gender' },
+	{ label: 'Origin', key: 'origin' }
 ];
 
-// const { data: users, pending } = await useFetch(API);
-// const displayFilters = ref(false);
+const { result } = useQuery(gql`
+	query getCharacters {
+		characters(page: 1, filter: { name: "rick" }) {
+			info {
+				count
+			}
+			results {
+				name,
+				status,
+				species,
+				type,
+				gender,
+				origin {
+					name
+				}	
+			}
+		}
+	}
+`)
 
-const userStore = useUser();
-onMounted(() => {
-	userStore.fetchUsers()
+const characters = computed(() => {
+	return result.value.characters.results;
 })
+
 </script>
 
 <style lang="scss" scoped>
